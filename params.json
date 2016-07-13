@@ -1,0 +1,6 @@
+{
+  "name": "Paper-diagram",
+  "tagline": "An easy to use javascript diagram editor (jquery not required) built on top of paper.js",
+  "body": "### Welcome to paper-diagram\r\nAn easy to use javascript diagram editor built on top of paper.js\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
