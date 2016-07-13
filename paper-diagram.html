@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Paper.js Diagram Editor</title>
+
+
+    </head>
+    <body>
+        <canvas id="canvasEditor" width="1600" height="900"></canvas>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/paper.js/0.9.25/paper-full.min.js"></script>
+        <script src="/Scripts/paper-diagram.js"></script>        
+        <script type="text/javascript">
+
+
+            var diag = paperDiagram("canvasEditor");
+            diag.newDiagram();
+
+            //Create Steps Here
+
+            var start = diag.addStep({
+                x: 100,
+                y: 200,
+                steptype: "start",
+                text: "Start",
+                fillColor: "#00ff77",
+                textColor: "#ffffff",
+                maxOutboundLinks: 1
+            });
+
+            var golf = diag.addStep({
+                x: 300,
+                y: 200,
+                steptype: "process",
+                text: "I feel like Golf",
+            });
+
+            var weather = diag.addStep({
+                x: 500,
+                y: 200,
+                steptype: "decision",
+                text: "Is it raining?",
+            });
+
+            var umbrella = diag.addStep({
+                x: 500,
+                y: 350,
+                steptype: "decision",
+                text: "Do I need an umbrella?",
+                fillColor: "#0000aa",
+                textColor: "#ffffff"
+            });
+
+            var teeTime = diag.addStep({
+                x: 700,
+                y: 200,
+                steptype: "decision",
+                text: "Can I get a teetime?",
+            });
+
+            var book = diag.addStep({
+                x: 500,
+                y: 500,
+                steptype: "process",
+                text: "Maybe read a book instead",
+            });
+
+            var playGolf = diag.addStep({
+                x: 900,
+                y: 200,
+                steptype: "document",
+                text: "Play Golf",
+                fillColor: "yellow",
+            });
+
+            var end = diag.addStep({
+                x: 1100,
+                y: 200,
+                steptype: "end",
+                text: "End",
+                fillColor: "#ff0000",
+                textColor: "#ffffff",
+                maxInboundLinks:1
+            });
+
+            //Create Links Here
+
+            var link = diag.addLink({
+                startStep: start,
+                startDirection: 1,
+                endStep: golf,
+                endDirection: 3
+            });
+
+            link = diag.addLink({
+                startStep: golf,
+                startDirection: 1,
+                endStep: weather,
+                endDirection: 3
+            });
+
+            link = diag.addLink({
+                startStep: weather,
+                startDirection: 2,
+                endStep: umbrella,
+                endDirection: 0,
+                text: "Yes"
+            });
+
+            link = diag.addLink({
+                startStep: umbrella,
+                startDirection: 2,
+                endStep: book,
+                endDirection: 0,
+                text: "No"
+            });
+
+            link = diag.addLink({
+                startStep: book,
+                startDirection: 1,
+                endStep: end,
+                endDirection: 2,
+                extraPoints: [[1100,500]]
+            });
+
+            link = diag.addLink({
+                startStep: weather,
+                startDirection: 1,
+                endStep: teeTime,
+                endDirection: 3,
+                text: "No"
+            });
+
+            link = diag.addLink({
+                startStep: umbrella,
+                startDirection: 1,
+                endStep: teeTime,
+                endDirection: 2,
+                text: "Yes"
+            });
+
+            link = diag.addLink({
+                startStep: teeTime,
+                startDirection: 1,
+                endStep: playGolf,
+                endDirection: 3,
+                text: "Yes"
+            });
+
+            link = diag.addLink({
+                startStep: teeTime,
+                startDirection: 2,
+                endStep: book,
+                endDirection: 1,
+                text: "No",
+                extraPoints: [[700, 400]]
+            });
+
+            link = diag.addLink({
+                startStep: playGolf,
+                startDirection: 1,
+                endStep: end,
+                endDirection: 3,
+                text: ""
+            });
+
+            console.log(diag.exportModel());
+
+        </script>
+    </body>
+
+
+</html>
